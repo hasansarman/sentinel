@@ -88,12 +88,12 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
         $activation = $this
             ->createModel()
             ->newQuery()
-            ->where('user_id', $user->getUserId())
-            ->where('completed', false)
-            ->where('created_at', '>', $expires);
+            ->where('USER_ID', $user->getUserId())
+            ->where('COMPLETED', false)
+            ->where('IDATE', '>', $expires);
 
         if ($code) {
-            $activation->where('code', $code);
+            $activation->where('CODE', $code);
         }
 
         return $activation->first() ?: false;
@@ -109,10 +109,10 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
         $activation = $this
             ->createModel()
             ->newQuery()
-            ->where('user_id', $user->getUserId())
-            ->where('code', $code)
-            ->where('completed', false)
-            ->where('created_at', '>', $expires)
+            ->where('USER_ID', $user->getUserId())
+            ->where('CODE', $code)
+            ->where('COMPLETED', false)
+            ->where('IDATE', '>', $expires)
             ->first();
 
         if ($activation === null) {
@@ -120,8 +120,8 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
         }
 
         $activation->fill([
-            'completed'    => true,
-            'completed_at' => Carbon::now(),
+            'COMPLETED'    => true,
+            'COMPLETED_AT' => Carbon::now(),
         ]);
 
         $activation->save();
@@ -137,8 +137,8 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
         $activation = $this
             ->createModel()
             ->newQuery()
-            ->where('user_id', $user->getUserId())
-            ->where('completed', true)
+            ->where('USER_ID', $user->getUserId())
+            ->where('COMPLETED', true)
             ->first();
 
         return $activation ?: false;
@@ -168,8 +168,8 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
         return $this
             ->createModel()
             ->newQuery()
-            ->where('completed', false)
-            ->where('created_at', '<', $expires)
+            ->where('COMPLETED', false)
+            ->where('IDATE', '<', $expires)
             ->delete();
     }
 
