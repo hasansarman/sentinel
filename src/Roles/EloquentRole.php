@@ -37,9 +37,9 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      * {@inheritDoc}
      */
     protected $fillable = [
-        'name',
-        'slug',
-        'permissions',
+        'NAME',
+        'SLUG',
+        'PERMISSIONS',
     ];
 
     /**
@@ -70,7 +70,7 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      */
     public function users()
     {
-        return $this->belongsToMany(static::$usersModel, 'role_users', 'role_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(static::$usersModel, 'role_users', 'ROLE_ID', 'USER_ID')->withTimestamps();
     }
 
     /**
@@ -108,7 +108,7 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      */
     public function getRoleSlug()
     {
-        return $this->slug;
+        return $this->SLUG;
     }
 
     /**
