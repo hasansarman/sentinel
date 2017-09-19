@@ -108,7 +108,7 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
     {
         $persistence = $this->createModel()
             ->newQuery()
-            ->where('code', $code)
+            ->where('CODE', $code)
             ->first();
 
         return $persistence ? $persistence : false;
@@ -181,7 +181,7 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
     {
         return $this->createModel()
             ->newQuery()
-            ->where('code', $code)
+            ->where('CODE', $code)
             ->delete();
     }
 
