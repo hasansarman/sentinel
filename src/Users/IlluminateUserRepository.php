@@ -123,7 +123,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
         return $this->createModel()
             ->newQuery()
             ->whereHas('persistences', function ($q) use ($code) {
-                $q->where('code', $code);
+                $q->where('CODE', $code);
             })
             ->first();
     }
@@ -151,7 +151,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
      */
     public function validateCredentials(UserInterface $user, array $credentials)
     {
-        return $this->hasher->check($credentials['password'], $user->password);
+        return $this->hasher->check($credentials['PASSWORD'], $user->PASSWORD);
     }
 
     /**
@@ -230,10 +230,10 @@ class IlluminateUserRepository implements UserRepositoryInterface
      */
     protected function parseCredentials(array $credentials, array $loginNames)
     {
-        if (isset($credentials['password'])) {
-            $password = $credentials['password'];
+        if (isset($credentials['PASSWORD'])) {
+            $password = $credentials['PASSWORD'];
 
-            unset($credentials['password']);
+            unset($credentials['PASSWORD']);
         } else {
             $password = null;
         }
@@ -317,7 +317,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
         if (isset($password)) {
             $password = $this->hasher->hash($password);
 
-            $user->fill(compact('password'));
+            $user->fill(compact('PASSWORD'));
         }
 
         $this->fireEvent('sentinel.user.filled', compact('user', 'credentials'));
