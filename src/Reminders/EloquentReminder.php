@@ -33,9 +33,9 @@ class EloquentReminder extends Model
      * {@inheritDoc}
      */
     protected $fillable = [
-        'code',
-        'completed',
-        'completed_at',
+        'CODE',
+        'COMPLETED',
+        'COMPLETED_AT',
     ];
 
     /**
@@ -57,6 +57,6 @@ class EloquentReminder extends Model
      */
     public function setCompletedAttribute($completed)
     {
-        $this->attributes['completed'] = (int) (bool) $completed;
+        $this->attributes['COMPLETED'] = (int) (bool) $completed;
     }
 }
