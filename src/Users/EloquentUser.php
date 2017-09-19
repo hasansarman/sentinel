@@ -57,7 +57,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
     /**
      * {@inheritDoc}
      */
-    protected $persistableKey = 'ID';
+    protected $persistableKey = 'USER_ID';
 
     /**
      * {@inheritDoc}
