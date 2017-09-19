@@ -81,8 +81,8 @@ class IlluminateReminderRepository implements ReminderRepositoryInterface
         $code = $this->generateReminderCode();
 
         $reminder->fill([
-            'code'      => $code,
-            'completed' => false,
+            'CODE'      => $code,
+            'COMPLETED' => false,
         ]);
 
         $reminder->user_id = $user->getUserId();
@@ -102,12 +102,12 @@ class IlluminateReminderRepository implements ReminderRepositoryInterface
         $reminder = $this
             ->createModel()
             ->newQuery()
-            ->where('user_id', $user->getUserId())
-            ->where('completed', false)
-            ->where('created_at', '>', $expires);
+            ->where('USER_ID', $user->getUserId())
+            ->where('COMPLETED', false)
+            ->where('IDATE', '>', $expires);
 
         if ($code) {
-            $reminder->where('code', $code);
+            $reminder->where('CODE', $code);
         }
 
         return $reminder->first() ?: false;
@@ -123,17 +123,17 @@ class IlluminateReminderRepository implements ReminderRepositoryInterface
         $reminder = $this
             ->createModel()
             ->newQuery()
-            ->where('user_id', $user->getUserId())
-            ->where('code', $code)
-            ->where('completed', false)
-            ->where('created_at', '>', $expires)
+            ->where('USER_ID', $user->getUserId())
+            ->where('CODE', $code)
+            ->where('COMPLETED', false)
+            ->where('IDATE', '>', $expires)
             ->first();
 
         if ($reminder === null) {
             return false;
         }
 
-        $credentials = compact('password');
+        $credentials = compact('PASSWORD');
 
         $valid = $this->users->validForUpdate($user, $credentials);
 
@@ -144,8 +144,8 @@ class IlluminateReminderRepository implements ReminderRepositoryInterface
         $this->users->update($user, $credentials);
 
         $reminder->fill([
-            'completed'    => true,
-            'completed_at' => Carbon::now(),
+            'COMPLETED'    => true,
+            'COMPLETED_AT' => Carbon::now(),
         ]);
 
         $reminder->save();
@@ -163,8 +163,8 @@ class IlluminateReminderRepository implements ReminderRepositoryInterface
         return $this
             ->createModel()
             ->newQuery()
-            ->where('completed', false)
-            ->where('created_at', '<', $expires)
+            ->where('COMPLETED', false)
+            ->where('IDATE', '<', $expires)
             ->delete();
     }
 
