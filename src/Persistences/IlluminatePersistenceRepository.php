@@ -195,7 +195,7 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
         }
 
         foreach ($persistable->{$persistable->getPersistableRelationship()}()->get() as $persistence) {
-            if ($persistence->code !== $this->check()) {
+            if ($persistence->CODE !== $this->check()) {
                 $persistence->delete();
             }
         }
