@@ -33,9 +33,9 @@ class EloquentActivation extends Model implements ActivationInterface
      * {@inheritDoc}
      */
     protected $fillable = [
-        'code',
-        'completed',
-        'completed_at',
+        'CODE',
+        'COMPLETED',
+        'COMPLETED_AT',
     ];
 
     /**
@@ -57,7 +57,7 @@ class EloquentActivation extends Model implements ActivationInterface
      */
     public function setCompletedAttribute($completed)
     {
-        $this->attributes['completed'] = (bool) $completed;
+        $this->attributes['COMPLETED'] = (bool) $completed;
     }
 
     /**
@@ -65,6 +65,6 @@ class EloquentActivation extends Model implements ActivationInterface
      */
     public function getCode()
     {
-        return $this->attributes['code'];
+        return $this->attributes['CODE'];
     }
 }
