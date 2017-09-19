@@ -144,7 +144,7 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
         $persistence = $this->createModel();
 
         $persistence->{$persistable->getPersistableKey()} = $persistable->getPersistableId();
-        $persistence->code = $code;
+        $persistence->CODE = $code;
 
         return $persistence->save();
     }
