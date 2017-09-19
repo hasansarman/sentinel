@@ -40,24 +40,24 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      * {@inheritDoc}
      */
     protected $fillable = [
-        'email',
-        'password',
-        'last_name',
-        'first_name',
-        'permissions',
+        'EMAIL',
+        'PASSWORD',
+        'LAST_NAME',
+        'FIRST_NAME',
+        'PERMISSIONS',
     ];
 
     /**
      * {@inheritDoc}
      */
     protected $hidden = [
-        'password',
+        'PASSWORD',
     ];
 
     /**
      * {@inheritDoc}
      */
-    protected $persistableKey = 'user_id';
+    protected $persistableKey = 'USER_ID';
 
     /**
      * {@inheritDoc}
@@ -69,7 +69,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      *
      * @var array
      */
-    protected $loginNames = ['email'];
+    protected $loginNames = ['EMAIL'];
 
     /**
      * The Eloquent roles model name.
@@ -123,7 +123,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function roles()
     {
-        return $this->belongsToMany(static::$rolesModel, 'role_users', 'user_id', 'role_id')->withTimestamps();
+        return $this->belongsToMany(static::$rolesModel, 'role_users', 'USER_ID', 'ROLE_ID')->withTimestamps();
     }
 
     /**
@@ -133,7 +133,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function persistences()
     {
-        return $this->hasMany(static::$persistencesModel, 'user_id');
+        return $this->hasMany(static::$persistencesModel, 'USER_ID');
     }
 
     /**
@@ -143,7 +143,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function activations()
     {
-        return $this->hasMany(static::$activationsModel, 'user_id');
+        return $this->hasMany(static::$activationsModel, 'USER_ID');
     }
 
     /**
@@ -153,7 +153,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function reminders()
     {
-        return $this->hasMany(static::$remindersModel, 'user_id');
+        return $this->hasMany(static::$remindersModel, 'USER_ID');
     }
 
     /**
@@ -163,7 +163,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function throttle()
     {
-        return $this->hasMany(static::$throttlingModel, 'user_id');
+        return $this->hasMany(static::$throttlingModel, 'USER_ID');
     }
 
     /**
@@ -297,7 +297,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function getUserPassword()
     {
-        return $this->password;
+        return $this->PASSWORD;
     }
 
     /**
