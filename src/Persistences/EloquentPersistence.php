@@ -19,10 +19,10 @@
  */
 
 namespace Cartalyst\Sentinel\Persistences;
-
+use App\Models\Persistence;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentPersistence extends Model implements PersistenceInterface
+class EloquentPersistence extends Persistence implements PersistenceInterface
 {
     /**
      * {@inheritDoc}
