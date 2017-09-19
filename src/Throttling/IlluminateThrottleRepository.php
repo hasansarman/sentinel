@@ -166,7 +166,7 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
      */
     public function ipDelay($ipAddress)
     {
-        return $this->delay('ip', $ipAddress);
+        return $this->delay('IP', $ipAddress);
     }
 
     /**
@@ -184,15 +184,15 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
     {
         $global = $this->createModel();
         $global->fill([
-            'type' => 'global',
+            'TYPE' => 'global',
         ]);
         $global->save();
 
         if ($ipAddress !== null) {
             $ipAddressThrottle = $this->createModel();
             $ipAddressThrottle->fill([
-                'type' => 'ip',
-                'ip'   => $ipAddress,
+                'TYPE' => 'ip',
+                'IP'   => $ipAddress,
             ]);
             $ipAddressThrottle->save();
         }
@@ -200,9 +200,9 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
         if ($user !== null) {
             $userThrottle = $this->createModel();
             $userThrottle->fill([
-                'type' => 'user',
+                'TYPE' => 'user',
             ]);
-            $userThrottle->user_id = $user->getUserId();
+            $userThrottle->USER_ID = $user->getUserId();
             $userThrottle->save();
         }
     }
@@ -403,8 +403,8 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
 
         return $this->createModel()
             ->newQuery()
-            ->where('type', 'global')
-            ->where('created_at', '>', $interval)
+            ->where('TYPE', 'global')
+            ->where('IDATE', '>', $interval)
             ->get();
     }
 
@@ -437,9 +437,9 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
         return $this
             ->createModel()
             ->newQuery()
-            ->where('type', 'ip')
-            ->where('ip', $ipAddress)
-            ->where('created_at', '>', $interval)
+            ->where('TYPE', 'ip')
+            ->where('IP', $ipAddress)
+            ->where('IDATE', '>', $interval)
             ->get();
     }
 
@@ -474,9 +474,9 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
         return $this
             ->createModel()
             ->newQuery()
-            ->where('type', 'user')
-            ->where('user_id', $user->getUserId())
-            ->where('created_at', '>', $interval)
+            ->where('TYPE', 'user')
+            ->where('USER_ID', $user->getUserId())
+            ->where('IDATE', '>', $interval)
             ->get();
     }
 
@@ -490,6 +490,6 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
      */
     protected function secondsToFree(EloquentThrottle $throttle, $interval)
     {
-        return $throttle->created_at->addSeconds($interval)->diffInSeconds();
+        return $throttle->IDATE->addSeconds($interval)->diffInSeconds();
     }
 }
