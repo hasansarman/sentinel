@@ -69,9 +69,9 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
 
         $code = $this->generateActivationCode();
 
-        $activation->fill(compact('code'));
+        $activation->fill(compact('CODE'));
 
-        $activation->user_id = $user->getUserId();
+        $activation->USER_ID = $user->getUserId();
 
         $activation->save();
 
