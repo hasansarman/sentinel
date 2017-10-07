@@ -28,7 +28,7 @@ class EloquentActivation extends Model implements ActivationInterface
      * {@inheritDoc}
      */
     protected $table = 'activations';
-
+protected $primaryKey='ID';
     /**
      * {@inheritDoc}
      */
@@ -37,7 +37,8 @@ class EloquentActivation extends Model implements ActivationInterface
         'COMPLETED',
         'COMPLETED_AT',
     ];
-
+    const CREATED_AT = 'IDATE';
+    const UPDATED_AT = 'UDATE';
     /**
      * Get mutator for the "completed" attribute.
      *

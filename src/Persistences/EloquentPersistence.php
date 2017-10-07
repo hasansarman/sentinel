@@ -28,7 +28,9 @@ class EloquentPersistence extends Model implements PersistenceInterface
      * {@inheritDoc}
      */
     protected $table = 'persistences';
-
+    const CREATED_AT = 'IDATE';
+    const UPDATED_AT = 'UDATE';
+    protected $primaryKey="ID";
     /**
      * The users model name.
      *

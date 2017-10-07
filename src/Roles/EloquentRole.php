@@ -32,7 +32,9 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      * {@inheritDoc}
      */
     protected $table = 'roles';
-
+    const CREATED_AT = 'IDATE';
+    const UPDATED_AT = 'UDATE';
+    protected $primaryKey = 'ID';
     /**
      * {@inheritDoc}
      */
@@ -92,7 +94,7 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      */
     public function setPermissionsAttribute(array $permissions)
     {
-        $this->attributes['permissions'] = $permissions ? json_encode($permissions) : '';
+        $this->attributes['PERMISSIONS'] = $permissions ? json_encode($permissions) : '';
     }
 
     /**
@@ -160,6 +162,6 @@ class EloquentRole extends Model implements RoleInterface, PermissibleInterface
      */
     protected function createPermissions()
     {
-        return new static::$permissionsClass($this->permissions);
+        return new static::$permissionsClass($this->PERMISSIONS);
     }
 }

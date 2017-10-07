@@ -85,7 +85,7 @@ class IlluminateReminderRepository implements ReminderRepositoryInterface
             'COMPLETED' => false,
         ]);
 
-        $reminder->user_id = $user->getUserId();
+        $reminder->USER_ID = $user->getUserId();
 
         $reminder->save();
 

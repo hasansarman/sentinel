@@ -28,7 +28,9 @@ class EloquentThrottle extends Model
      * {@inheritDoc}
      */
     protected $table = 'throttle';
-
+    const CREATED_AT = 'IDATE';
+    const UPDATED_AT = 'UDATE';
+    protected $primaryKey="ID";
     /**
      * {@inheritDoc}
      */

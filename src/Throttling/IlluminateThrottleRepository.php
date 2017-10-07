@@ -342,6 +342,7 @@ class IlluminateThrottleRepository implements ThrottleRepositoryInterface
      */
     protected function delay($type, $argument = null)
     {
+        $type=strtolower ( $type );
         // Based on the given type, we will generate method and property names
         $method = 'get'.studly_case($type).'Throttles';
 

@@ -35,7 +35,9 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      * {@inheritDoc}
      */
     protected $table = 'users';
-
+    const CREATED_AT = 'IDATE';
+    const UPDATED_AT = 'UDATE';
+    protected $primaryKey="ID";
     /**
      * {@inheritDoc}
      */
@@ -185,7 +187,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function setPermissionsAttribute(array $permissions)
     {
-        $this->attributes['permissions'] = $permissions ? json_encode($permissions) : '';
+        $this->attributes['PERMISSIONS'] = $permissions ? json_encode($permissions) : '';
     }
 
     /**
@@ -233,7 +235,7 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function getUserId()
     {
-        return $this->getKey();
+        return $this->ID;
     }
 
     /**
@@ -241,7 +243,15 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     public function getPersistableId()
     {
-        return $this->getKey();
+        /*$this->persistences();
+        $this->throttle();
+        $this->reminders();
+        $this->activations();
+        print_r($this);
+        echo $this->ID;
+        echo $this->getKey();*/
+        //return $this->getKey();
+        return $this->ID;
     }
 
     /**
@@ -450,12 +460,12 @@ class EloquentUser extends Model implements RoleableInterface, PermissibleInterf
      */
     protected function createPermissions()
     {
-        $userPermissions = $this->permissions;
+        $userPermissions = $this->PERMISSIONS;
 
         $rolePermissions = [];
 
         foreach ($this->roles as $role) {
-            $rolePermissions[] = $role->permissions;
+            $rolePermissions[] = $role->PERMISSIONS;
         }
 
         return new static::$permissionsClass($userPermissions, $rolePermissions);

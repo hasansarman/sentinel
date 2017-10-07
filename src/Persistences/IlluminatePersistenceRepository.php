@@ -23,8 +23,9 @@ namespace Cartalyst\Sentinel\Persistences;
 use Cartalyst\Sentinel\Cookies\CookieInterface;
 use Cartalyst\Sentinel\Persistences\PersistableInterface;
 use Cartalyst\Sentinel\Sessions\SessionInterface;
+use Cartalyst\Sentinel\Users\EloquentUser;
 use Cartalyst\Support\Traits\RepositoryTrait;
-
+use Log;
 class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
 {
     use RepositoryTrait;
@@ -106,10 +107,13 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
      */
     public function findByPersistenceCode($code)
     {
-        $persistence = $this->createModel()
-            ->newQuery()
-            ->where('CODE', $code)
+        $persistence =  EloquentPersistence::where('CODE', $code)
             ->first();
+       // $persistence = $this->createModel()
+         //   ->newQuery()
+         //   ->where('CODE', $code)
+         //   ->first();
+
 
         return $persistence ? $persistence : false;
     }
@@ -120,8 +124,11 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
     public function findUserByPersistenceCode($code)
     {
         $persistence = $this->findByPersistenceCode($code);
-
-        return $persistence ? $persistence->user : false;
+      //  \Log::info(print_r($persistence->user(), true));
+        //\Log::info(print_r($persistence, true));
+//        $persistence->user();
+        $user=EloquentUser::where("ID",$persistence->USER_ID)->first();
+        return $persistence ? $user : false;
     }
 
     /**
@@ -143,8 +150,10 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
 
         $persistence = $this->createModel();
 
-        $persistence->{$persistable->getPersistableKey()} = $persistable->getPersistableId();
-        $persistence->code = $code;
+        //$persistence->{$persistable->getPersistableKey()} = $persistable->getPersistableId();
+        $persistence->CODE = $code;
+
+ $persistence->USER_ID=$persistable->getPersistableId();
 
         return $persistence->save();
     }
@@ -179,10 +188,11 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
      */
     public function remove($code)
     {
-        return $this->createModel()
-            ->newQuery()
-            ->where('CODE', $code)
-            ->delete();
+       // return $this->createModel()
+          //  ->newQuery()
+         //   ->where('CODE', $code)
+         //   ->delete();
+        return EloquentPersistence::where('CODE', $code)->delete();
     }
 
     /**
@@ -195,7 +205,7 @@ class IlluminatePersistenceRepository implements PersistenceRepositoryInterface
         }
 
         foreach ($persistable->{$persistable->getPersistableRelationship()}()->get() as $persistence) {
-            if ($persistence->code !== $this->check()) {
+            if ($persistence->CODE !== $this->check()) {
                 $persistence->delete();
             }
         }

@@ -69,9 +69,9 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
 
         $code = $this->generateActivationCode();
 
-        $activation->fill(compact('code'));
+        $activation->CODE=$this->generateActivationCode();
 
-        $activation->user_id = $user->getUserId();
+        $activation->USER_ID = $user->getUserId();
 
         $activation->save();
 
@@ -119,10 +119,11 @@ class IlluminateActivationRepository implements ActivationRepositoryInterface
             return false;
         }
 
-        $activation->fill([
-            'COMPLETED'    => true,
-            'COMPLETED_AT' => Carbon::now(),
-        ]);
+        $activation->COMPLETED=true;
+        $activation->COMPLETED_AT= Carbon::now();
+
+
+       
 
         $activation->save();
 

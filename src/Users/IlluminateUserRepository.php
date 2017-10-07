@@ -87,7 +87,8 @@ class IlluminateUserRepository implements UserRepositoryInterface
         if (empty($credentials)) {
             return;
         }
-
+//print_r($credentials);
+       // return;
         $instance = $this->createModel();
 
         $loginNames = $instance->getLoginNames();
@@ -95,6 +96,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
         list($logins, $password, $credentials) = $this->parseCredentials($credentials, $loginNames);
 
         if (empty($logins)) {
+            echo "LOGINS EMPTY";
             return;
         }
 
@@ -133,7 +135,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
      */
     public function recordLogin(UserInterface $user)
     {
-        $user->last_login = Carbon::now();
+        $user->LAST_LOGIN = Carbon::now();
 
         return $user->save() ? $user : false;
     }
@@ -238,8 +240,12 @@ class IlluminateUserRepository implements UserRepositoryInterface
             $password = null;
         }
 
-        $passedNames = array_intersect_key($credentials, array_flip($loginNames));
-
+        $passedNames = array_intersect_key($credentials, array_flip(array("EMAIL")));
+     //   print_r($credentials);
+      //  echo "--";
+      //  print_r(array_flip($loginNames));
+      //  echo "--";
+//print_r($passedNames);
         if (count($passedNames) > 0) {
             $logins = [];
 
@@ -270,7 +276,7 @@ class IlluminateUserRepository implements UserRepositoryInterface
         $instance = $this->createModel();
 
         $loginNames = $instance->getLoginNames();
-
+echo "ID=".$id;
         // We will simply parse credentials which checks logins and passwords
         list($logins, $password, $credentials) = $this->parseCredentials($credentials, $loginNames);
 

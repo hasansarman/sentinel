@@ -321,7 +321,7 @@ class Sentinel
         }
 
         $this->fireEvent('sentinel.authenticated', $user);
-
+print_r($user);
         return $this->user = $user;
     }
 
@@ -413,7 +413,7 @@ class Sentinel
                 }
 
                 if (isset($_SERVER['PHP_AUTH_PW'])) {
-                    $credentials['password'] = $_SERVER['PHP_AUTH_PW'];
+                    $credentials['PASSWORD'] = $_SERVER['PHP_AUTH_PW'];
                 }
 
                 if (count($credentials) > 0) {
